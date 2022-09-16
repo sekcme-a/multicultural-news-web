@@ -93,7 +93,7 @@ const Result = () => {
 
             refreshFunction={refreshPage}
             pullDownToRefresh
-            pullDownToRefreshThreshold={50}
+            pullDownToRefreshThreshold={300}
             pullDownToRefreshContent={
               <h3 style={{ textAlign: 'center' }}>&#8595; 내려서 새로고침</h3>
             }
