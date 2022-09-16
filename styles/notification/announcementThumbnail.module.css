@@ -1,0 +1,29 @@
+.main_container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 18px 18px 0;
+  border-bottom: 1px solid rgb(206, 206, 206);
+  border-top: 1px solid rgb(206, 206, 206);
+}
+.icon_container{
+  width: 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content_container{
+  width: 82%;
+}
+.title_container{
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.author_container{
+  width: 100%;
+  font-size: 14px;  
+}

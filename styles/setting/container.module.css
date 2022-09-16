@@ -1,0 +1,26 @@
+.main_container{
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 50px;
+}
+.title_container{
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 15px 12px 0 12px;
+  width:100%;
+  /* border-bottom: 1px solid rgb(197, 197, 197); */
+}
+.title_container p {
+  margin-left: 10px;
+}
+.content_container{
+  margin: 20px 20px 0 20px;
+  font-size: 15px;
+  line-height: 20px;
+}

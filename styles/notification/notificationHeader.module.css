@@ -1,0 +1,23 @@
+.header_container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 9;
+}
+.item_container{
+  width: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+.selected{
+  border-bottom: 2px solid red;
+}
+.icon_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%;
+}

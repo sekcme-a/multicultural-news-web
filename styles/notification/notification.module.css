@@ -1,0 +1,16 @@
+.no_notification{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.more{
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.main_container{
+  margin-bottom: 50px;
+}

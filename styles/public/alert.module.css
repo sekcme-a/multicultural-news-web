@@ -1,0 +1,12 @@
+.alert_container{
+  position: fixed;
+  bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  transition: .65s;
+  z-index: 99999999;
+}
+.alert_hide{
+  bottom: 0 !important;
+}
