@@ -51,7 +51,6 @@ const PostList = (props) => {
 
   useEffect(() => {
     const isReload = () => {
-      console.log("reload")
       window.sessionStorage.setItem("page", 1)
       window.sessionStorage.setItem("data", null)
       window.sessionStorage.setItem("id", null)
@@ -75,26 +74,25 @@ const PostList = (props) => {
           db.collection("posts").doc(id).set({ likesCount: 0, views: 0, commentsCount: 0 })
       })
     } catch (e) {
-      console.log(e)
     }
     if (window) {
-      console.log(page)
       window.sessionStorage.setItem("page", page)
       window.sessionStorage.setItem("id",props.id)
       window.sessionStorage.setItem("scrollPosition", scrollY)
-      window.sessionStorage.setItem("data",JSON.stringify(list))
+      window.sessionStorage.setItem("data", JSON.stringify(list))
+      console.log(JSON.stringify(list))
     }
     router.push(`/post/${id}`)
   }
 
   //post가 1개라도 들어오면 로딩해제
-  useEffect(() => {
-    if (list.length === 0)
-      setIsLoading(true)
-    else if (isLoading) {
-      setIsLoading(false)
-    }
-  },[list]) 
+  // useEffect(() => {
+  //   if (list.length === 0)
+  //     setIsLoading(true)
+  //   else if (isLoading) {
+  //     setIsLoading(false)
+  //   }
+  // },[list]) 
 
   //post 에서 돌아올 때 세션에 있는 데이터 덮기
   useEffect(() => {
@@ -106,21 +104,20 @@ const PostList = (props) => {
       else if(num && num!=="null" && num!==0)
         setPage(parseInt(num))
       const prevData = window.sessionStorage.getItem("data")
-      console.log(prevData)
-      // console.log(`p: ${JSON.parse(prevData)}`)
       if (prevData && prevData !== "null") {
         try {
-          console.log("here")
           setList(JSON.parse(prevData))
+          console.log(JSON.parse(prevData))
         } catch (e) {
           setList([])
           setHasPrevData(false)
+          console.log(e)
         }
       } else
         setHasPrevData(false)
+      setIsLoading(false)
       setTimeout(() => {
-      window.scrollTo(0, window.sessionStorage.getItem("scrollPosition"));
-      console.log(window.sessionStorage.getItem("scrollPosition"))
+        window.scrollTo(0, window.sessionStorage.getItem("scrollPosition"));
       },300)
     }
   }, [])
@@ -138,17 +135,7 @@ const PostList = (props) => {
         window.sessionStorage.setItem("data", doc.data().address)
         let idList = await sendRequest.fetchPostIdList(doc.data().address, 1)
         let resultList = []
-
-        for (const id of idList) {
-          if (props.id === window.sessionStorage.getItem("id")) {
-            await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-              resultList.push(data)
-              setList([...resultList])
-            })
-          } else
-            break;
-        }
-
+        setList(idList)
         // sendRequest.fetchPostDataFromId(2380, false)
 
 
@@ -158,10 +145,10 @@ const PostList = (props) => {
         setIsLoading(false)
       } else {
         setList([])
+        setIsLoading(false)
       }
     }
     if (props.id !== window.sessionStorage.getItem("id")) {
-      console.log("idChanged")
       window.sessionStorage.setItem("page", 1)
       window.sessionStorage.setItem("data", null)
       window.sessionStorage.setItem("id", props.id)
@@ -174,13 +161,11 @@ const PostList = (props) => {
     } 
     else if(window.sessionStorage.getItem("scrollPosition")==="0")
       fetchData()
-    console.log(`asdf${typeof(window.sessionStorage.getItem("scrollPosition"))}`)
   }, [props.id])
   
 
   const getMorePost = async () => {
     if (!isFetching) {
-      console.log(`fetching${page}`)  //235
       setIsFetching(true)
       const fetchingId = props.id
       let idList = await sendRequest.fetchPostIdList(window.sessionStorage.getItem("address"), page)
@@ -194,19 +179,12 @@ const PostList = (props) => {
       // const prevList = list
       // setList([...list, ...list])
       setPage(page + 1)
-      console.log(idList)
-      for (const id of idList) {
-        if (window.sessionStorage.getItem("data") !== "null") {
-          await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-            resultList.push(data)
-            setList([...resultList])
-          })
-        } else
-          break;
+      if (window.sessionStorage.getItem("data") !== "null") {
+        setList([...list, ...idList])
       }
+      
       setIsFetching(false)
-    } else
-      console.log("fetching")
+    }
   }
 
 
@@ -218,11 +196,12 @@ const PostList = (props) => {
   if (!props.id)
     return (<></>)
   if(isLoading)
-    return(<h4 className={styles.loading_post}>loading</h4>)
+    return (<h4 className={styles.loading_post}>loading</h4>)
+  
   return (
     <div className={props.addMargin===true? `${styles.main_container} ${styles.add_margin}`:styles.main_container} ref={lazyRoot} >
       {props.id === "main" && <h1 className={styles.title}>실시간 뉴스</h1>}
-      {list.length === 0 ?
+      {list.length===0 ?
         <div className={styles.no_post_container}>
           <HistoryEduIcon style={{fontSize:"40px", color:"rgb(120,120,120)"}} />
           <h4>아직 기사가 없습니다.</h4>

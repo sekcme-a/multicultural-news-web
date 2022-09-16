@@ -8,6 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 import { sendRequest } from "pages/api/sendRequest"
+import { FormatColorResetSharp } from "@mui/icons-material"
 
 
 
@@ -118,6 +119,7 @@ const MiniPostList = (props) => {
         }
       } else
         setHasPrevData(false)
+      setIsLoading(FormatColorResetSharp)
       setTimeout(() => {
       window.scrollTo(0, window.sessionStorage.getItem("scrollPosition"));
       console.log(window.sessionStorage.getItem("scrollPosition"))

@@ -24,12 +24,7 @@ const Result = () => {
       setIsLoading(true)
       let idList = await sendRequest.fetchPostIdList("https://www.kmcn.kr/news/best_list_all.html?lay_no=2596",1)
       let resultList = []
-      for (const id of idList) {
-        await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-          resultList.push(data)
-          setList([...resultList])
-        })
-      }
+      setList(idList)
       setPage(2)
       setIsLoading(false)
     }
@@ -42,12 +37,13 @@ const Result = () => {
       let idList = await sendRequest.fetchPostIdList("https://www.kmcn.kr/news/best_list_all.html?lay_no=2596", page)
       console.log(idList)
       let resultList = list
-      for (const id of idList) {
-        await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-          resultList.push(data)
-          setList([...resultList])
-        })
-      }
+      // for (const id of idList) {
+      //   await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
+      //     resultList.push(data)
+      //     setList([...resultList])
+      //   })
+      // }
+      setList([...list, ...idList])
       setPage(page + 1)
       setIsFetching(false)
     }

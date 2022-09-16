@@ -18,7 +18,7 @@ export const sendRequest = {
         } catch (e) {
           resolve(e.message)
         }
-      },10)
+      },0)
     })
   },
 
@@ -40,9 +40,10 @@ export const sendRequest = {
         } catch (e) {
           resolve(e.message)
         }
-      },10)
+      },0)
     })
   },
+
 
   fetchMainPostIdList: async (address) => {
     return new Promise(function (resolve, reject) {
@@ -62,7 +63,7 @@ export const sendRequest = {
         } catch (e) {
           resolve(e.message)
         }
-      },10)
+      },0)
     })
   },
 
@@ -84,7 +85,7 @@ export const sendRequest = {
         } catch (e) {
           resolve(e.message)
         }
-      },300)
+      },0)
     })
   }
 }

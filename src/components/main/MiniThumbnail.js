@@ -16,7 +16,8 @@ const MiniThumbnail = (props) => {
         <h2>{`[${props.data.category}]`}</h2>
         <h3>{props.data.title}</h3>
         <h4>{props.data.tag}</h4>
-        <h5>{props.data.author}</h5>
+        <h5>{props.data.info}</h5>
+        {console.log(props.data)}
       </div>
       <div className={styles.img_container}>
         <Image src={props.data.thumbnailImg.includes("https:") ? props.data.thumbnailImg : `https:${props.data.thumbnailImg}`} quality={50} alt={props.data.title} placeholder="blur" blurDataURL="/public/placeholder.png" layout="fill" objectFit="cover" objectPosition="center" priority={true} />

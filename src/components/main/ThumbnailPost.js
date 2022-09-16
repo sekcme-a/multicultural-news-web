@@ -174,7 +174,7 @@ const ThumbnailPost = (props) => {
       <Card sx={{ width: "100%", maxWidth: 500, marginTop: "20px", marginLeft:'10px', marginRight:"10px" }}>
         <CardHeader
           title={props.data?.title}
-          subheader={`${props.data?.createdAt} | ${props.data?.author}`}
+          subheader={`${props.data?.info}`}
           onClick={()=>props.onPostClick(id)}
         />
         <CardMedia
@@ -189,7 +189,7 @@ const ThumbnailPost = (props) => {
             {props.data.tag}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {`${props.data.subtitle}`}
+            {`${props.data.subtitle ==="..." ? props.data.title : props.data.subtitle}`}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
