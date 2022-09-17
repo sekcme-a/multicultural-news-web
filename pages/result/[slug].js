@@ -28,12 +28,13 @@ const Result = () => {
       let idList = await sendRequest.fetchSearchIdList(slug, 1)
       let resultList = []
       setSearchCount(idList.resultCount)
-      for (const id of idList.idList) {
-        await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-          resultList.push(data)
-          setList([...resultList])
-        })
-      }
+      // for (const id of idList.idList) {
+      //   await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
+      //     resultList.push(data)
+      //     setList([...resultList])
+      //   })
+      // }
+      setList(idList.idList)
       setPage(2)
       setIsLoading(false)
     }
@@ -46,12 +47,13 @@ const Result = () => {
       let idList = await sendRequest.fetchSearchIdList(slug, page)
       let resultList = list
       setSearchCount(idList.resultCount)
-      for (const id of idList.idList) {
-        await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-          resultList.push(data)
-          setList([...resultList])
-        })
-      }
+      // for (const id of idList.idList) {
+      //   await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
+      //     resultList.push(data)
+      //     setList([...resultList])
+      //   })
+      // }
+      setList([...list, ...idList.idList])
       setPage(page + 1)
       setIsFetching(false)
     }

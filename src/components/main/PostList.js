@@ -6,7 +6,8 @@ import ThumbnailPost from "src/components/main/ThumbnailPost"
 import CircularProgress from '@mui/material/CircularProgress';
 import InfiniteScroll from "react-infinite-scroll-component"
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-
+import { Skeleton } from "@mui/material"
+import PostLoader from "src/components/public/PostLoader"
 import { sendRequest } from "pages/api/sendRequest"
 
 
@@ -193,10 +194,15 @@ const PostList = (props) => {
     location.reload()
   }
 
+
   if (!props.id)
     return (<></>)
   if(isLoading)
-    return (<h4 className={styles.loading_post}>loading</h4>)
+    return (
+      <div className={props.addMargin===true? `${styles.main_container} ${styles.add_margin}`:styles.main_container} ref={lazyRoot} >
+        <PostLoader />
+      </div>
+    )
   
   return (
     <div className={props.addMargin===true? `${styles.main_container} ${styles.add_margin}`:styles.main_container} ref={lazyRoot} >
@@ -212,12 +218,12 @@ const PostList = (props) => {
         next={getMorePost}
         hasMore={!endOfPost}
         // loader={<CircularProgress size={20} />}
-        loader={<h4 className={styles.loading_post}>loading</h4>}
+        loader={<PostLoader />}
         endMessage={<div className={styles.end_of_post}>마지막 기사입니다.</div>}
 
         refreshFunction={refreshPage}
         pullDownToRefresh
-        pullDownToRefreshThreshold={300}
+        pullDownToRefreshThreshold={250}
         pullDownToRefreshContent={
           <h3 style={{ textAlign: 'center' }}>&#8595; 내려서 새로고침</h3>
         }
@@ -228,7 +234,7 @@ const PostList = (props) => {
         {list?.map((doc, index) => {
           return (
               <div key={index}>
-              <ThumbnailPost data={doc} lazyRoot={lazyRoot} onPostClick={onPostClick} />
+              <ThumbnailPost data={doc} lazyRoot={lazyRoot} onPostClick={onPostClick} isLoading={false} />
               </div>
             )
           })

@@ -72,11 +72,14 @@
   word-break: keep-all;
   line-height: 20px;
   height:min-content;
+  letter-spacing: 1px;
 }
 .overlay h3{
   font-size: 13px;
   padding: 2px;
   width: 100%;
+  font-weight: normal;
+  line-height: 14px;
 }
 .overlay h4{
   font-size: 10px;

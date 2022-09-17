@@ -19,13 +19,12 @@ const MainNews = () => {
   useEffect(() => {
     const fetchData = async () => {
       const idList = await sendRequest.fetchMainPostIdList("https://www.kmcn.kr/")
-      let resultList = []
-      for (const id of idList) {
-        await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
-          resultList.push(data)
-        })
-      }
-      setList([...resultList])
+      // for (const id of idList) {
+      //   await sendRequest.fetchPostDataFromId(id.toString(), false).then((data) => {
+      //     resultList.push(data)
+      //   })
+      // }
+      setList(idList)
       setIsLoading(false)
     }
     fetchData()
@@ -60,7 +59,7 @@ const MainNews = () => {
         modules={[EffectCards, Pagination, Navigation]}
         className={styles.swiper}
         pagination={true}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        autoplay={{ delay: 2300, disableOnInteraction: false }}
         loop={true}
       >
         {list?.map((doc, index) => {
@@ -69,9 +68,10 @@ const MainNews = () => {
               <Link href={`/post/${doc.id}`} >
                 <div className={styles.swiper_container} onClick={onPostClick}>
                   <div className={styles.overlay}>
+                    <h2>{`[${doc.category}]`}</h2>
                     <h2>{doc.title}</h2>
-                    <h3>{doc.tag}</h3>
-                    <h4>{`${doc.createdAt} | ${doc.author}`}</h4>
+                    <h3>{doc.subtitle}</h3>
+                    {/* <h4>{`${doc.createdAt} | ${doc.author}`}</h4> */}
                   </div>
                   <Image src={doc.thumbnailImg.includes("https:") ? doc.thumbnailImg : `https:${doc.thumbnailImg}`} alt="메인 배경 이미지" layout="fill" objectFit="cover" objectPosition="center"/>
                 </div>

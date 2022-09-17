@@ -92,6 +92,7 @@ export default function Home() {
   return (
     <>
       <MainNews />
+      <h2 style={{fontWeight: "bold", margin: "20px 0 -13px 25px", fontSize: "20px"}}>실시간 뉴스</h2>
       <PostList id="home" addMargin={false}></PostList>
     </>
   )
